@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import org.fastcampus.student_management.application.course.dto.CourseInfoDto;
 import org.fastcampus.student_management.application.student.StudentService;
 import org.fastcampus.student_management.domain.Course;
+import org.fastcampus.student_management.domain.CourseList;
 import org.fastcampus.student_management.domain.DayOfWeek;
 import org.fastcampus.student_management.domain.Student;
 import org.fastcampus.student_management.repo.CourseRepository;
@@ -38,9 +39,7 @@ public class CourseService {
     public void changeFee(String studentName, int fee) {
         // TODO: 과제 구현 부분
         List<Course> courses = courseRepository.getCourseListByStudent(studentName);
-        List<Course> newCourses = courses.stream()
-            .map(course -> Course.changeFee(course, fee))
-            .toList();
-        courseRepository.saveCourses(newCourses);
+        CourseList courseList = new CourseList(courses);
+        courseList.changeAllCoursesFee(fee);
     }
 }
