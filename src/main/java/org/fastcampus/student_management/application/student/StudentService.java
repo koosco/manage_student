@@ -25,16 +25,14 @@ public class StudentService {
 
     public void activateStudent(String name) {
         // TODO: 과제 구현 부분
-        Student student = studentRepository.findByName(name)
-            .orElseThrow(() -> new RuntimeException("student not found"));
+        Student student = getStudent(name);
         student.activate();
         studentRepository.save(student);
     }
 
     public void deactivateStudent(String name) {
         // TODO: 과제 구현 부분
-        Student student = studentRepository.findByName(name)
-            .orElseThrow(() -> new RuntimeException("student not found"));
+        Student student = getStudent(name);
         student.deActivate();
         studentRepository.save(student);
     }
