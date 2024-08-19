@@ -18,6 +18,20 @@ public class Student {
         this.activated = true;
     }
 
+    public void activate() {
+        if (activated) {
+            throw new IllegalStateException("student is already activated");
+        }
+        activated = true;
+    }
+
+    public void deActivate() {
+        if (!activated) {
+            throw new IllegalStateException("student is already deActivated");
+        }
+        activated = false;
+    }
+
     public String getName() {
         return name;
     }

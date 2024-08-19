@@ -1,7 +1,7 @@
 package org.fastcampus.student_management.application.course;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 import org.fastcampus.student_management.application.course.dto.CourseInfoDto;
 import org.fastcampus.student_management.application.student.StudentService;
 import org.fastcampus.student_management.domain.Course;
@@ -28,10 +28,19 @@ public class CourseService {
 
     public List<CourseInfoDto> getCourseDayOfWeek(DayOfWeek dayOfWeek) {
         // TODO: 과제 구현 부분
-        return new ArrayList<>();
+        List<Course> courses = courseRepository.getCourseDayOfWeek(dayOfWeek);
+        return courses.stream()
+            .filter(Course::isActivateUser)
+            .map(CourseInfoDto::new)
+            .toList();
     }
 
     public void changeFee(String studentName, int fee) {
         // TODO: 과제 구현 부분
+        List<Course> courses = courseRepository.getCourseListByStudent(studentName);
+        List<Course> newCourses = courses.stream()
+            .map(course -> Course.changeFee(course, fee))
+            .toList();
+        courseRepository.saveCourses(newCourses);
     }
 }

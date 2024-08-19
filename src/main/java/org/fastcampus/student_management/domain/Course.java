@@ -21,6 +21,11 @@ public class Course {
         this.courseTime = courseTime;
     }
 
+    public static Course changeFee (Course course, int fee) {
+        return new Course(course.student, course.getCourseName(), fee, course.getDayOfWeek(),
+            course.getCourseTime());
+    }
+
     public String getCourseName() {
         return courseName;
     }
